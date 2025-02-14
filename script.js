@@ -1,6 +1,5 @@
 const express = require("express");
 const app= express();
-const left_panel = document.getElementById("left-panel");
 app.set('view engine', 'ejs');
 app.set('views','./views');
 app.engine('html',require('ejs').renderfile);
@@ -74,6 +73,7 @@ function LoadGrid(){
 }
 
 function submit(){
+    const left_panel = document.getElementById("left-panel");
     const button = document.getElementById("button");
     answer["답"] = button.value;
     processing(answer["답"]);
