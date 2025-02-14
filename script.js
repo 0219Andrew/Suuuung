@@ -1,5 +1,4 @@
 const express = require("express");
-const router= express.router();
 const app= express();
 const left_panel = document.getElementById("left-panel");
 app.set('view engine', 'ejs');
