@@ -17,8 +17,8 @@ let answer = {"답":"답","자모":"ㄷㅏㅂ"};
 
 function LoadGrid(){
     //grid_container 접근
-    const grid_container = document.getElementById("grid-container");
-    const keyboard_container = document.getElementById("keyboard-container");
+    grid_container = document.getElementById("grid-container");
+    keyboard_container = document.getElementById("keyboard-container");
 
     //grid_container 초기화
     grid_container.innerHTML = "";
@@ -72,8 +72,8 @@ function LoadGrid(){
 }
 
 function submit(){
-    const left_panel = document.getElementById("left-panel");
-    const button = document.getElementById("button");
+    left_panel = document.getElementById("left-panel");
+    button = document.getElementById("button");
     answer["답"] = button.value;
     processing(answer["답"]);
     //게임 화면으로 화면 체인지
