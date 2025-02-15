@@ -24,12 +24,6 @@ app.get('/chat',(req, res) => {
     res.json({'chats':chats,'names':names});
 });
 
-app.listen(3000, () => {
-    console.log('Server started on port 3000');
-  });
-
-
-
 async function Start() {
 
     const client = new chzzk.ChzzkClient({
@@ -126,4 +120,11 @@ async function Start() {
     // 채팅 연결
     if(start==1)
         await chzzkChat.connect()
+    else{
+        return;
+    }
 }
+
+app.listen(3000, () => {
+    console.log('Server started on port 3000');
+  });
