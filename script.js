@@ -1,9 +1,3 @@
-const express = require("express");
-const app= express();
-app.set('view engine', 'ejs');
-app.set('views','./views');
-
-let url;
 let chats = [];
 
 // 초성 리스트. 00 ~ 18
@@ -17,8 +11,8 @@ let answer = {"답":"답","자모":"ㄷㅏㅂ"};
 
 function LoadGrid(){
     //grid_container 접근
-    grid_container = document.getElementById("grid-container");
-    keyboard_container = document.getElementById("keyboard-container");
+    const grid_container = document.getElementById("grid-container");
+    const keyboard_container = document.getElementById("keyboard-container");
 
     //grid_container 초기화
     grid_container.innerHTML = "";
@@ -72,7 +66,7 @@ function LoadGrid(){
 }
 
 function submit(){
-    left_panel = document.getElementById("left-panel");
+    const left_panel = document.getElementById("left-panel");
     button = document.getElementById("button");
     answer["답"] = button.value;
     processing(answer["답"]);
@@ -141,16 +135,6 @@ function processing(word){
     console.log(`변환된 자모 : ${unicodeStr}`);
     location.href+='/play';
 }
-
-app.get("/", (req, res) => {
-    url = location.href;
-    res.sendFile(__dirname, "./input_page.html"); // fs를 안 써도 fs모듈 사용
-});
-
-app.get("/play", (req, res) => {
-    console.log("href 통한 이동");
-    res.sendFile(__dirname, "./index.html"); // fs를 안 써도 fs모듈 사용
-});
 
 async function Start() {
     const chzzk = require("chzzk");
