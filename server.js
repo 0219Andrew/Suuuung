@@ -17,6 +17,7 @@ app.get('/', (req, res) => {
 app.get('/start',(req, res) => {
     start=1;
     chats=[];
+    names=[];
     Start();
 });
 
