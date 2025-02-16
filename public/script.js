@@ -122,7 +122,7 @@ function submit(){
 
 async function starting() {
     await fetch(`/start`);
-    setInterval(Start,1000);
+    setTimeout(Start,1000);
 }
 
 function processing(word){
@@ -199,4 +199,5 @@ function InputCell(word){
         }
     }
     
+    setTimeout(Start,1000);
 }
