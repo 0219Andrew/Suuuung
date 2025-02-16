@@ -5,12 +5,16 @@ const JUNGSUNG_LIST = ['ㅏ', 'ㅏ ㅣ', 'ㅑ', 'ㅑ ㅣ', 'ㅓ', 'ㅓ ㅣ', '�
 // 종성 리스트. 00 ~ 27 + 1(1개 없음)
 const JONGSUNG_LIST = [' ', 'ㄱ', 'ㄱ ㄱ', 'ㄱ ㅅ', 'ㄴ', 'ㄴ ㅈ', 'ㄴ ㅎ', 'ㄷ', 'ㄹ', 'ㄹ ㄱ', 'ㄹ ㅁ', 'ㄹ ㅂ', 'ㄹ ㅅ', 'ㄹ ㅌ', 'ㄹ ㅍ', 'ㄹ ㅎ', 'ㅁ', 'ㅂ', 'ㅂ ㅅ', 'ㅅ', 'ㅅ ㅅ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ']
 
+let grid_container;
+let keyboard_container;
+
+
 let answer = {"답":"답","자모":"ㄷㅏㅂ"};
 const left_panel = document.getElementById("left-panel");
 function LoadGrid(){
     //grid_container 접근
-    const grid_container = document.getElementById("grid-container");
-    const keyboard_container = document.getElementById("keyboard-container");
+    grid_container = document.getElementById("grid-container");
+    keyboard_container = document.getElementById("keyboard-container");
 
     //grid_container 초기화
     grid_container.innerHTML = "";
@@ -145,7 +149,9 @@ async function Start() {
     chat = await chat.json();
     var name = chat['names'];
     chat = chat['chats'];
-    chatContainer.innerHTML = '';
+
+    
+    chatContainer.innerHTML = "";
     var correct = 0;
     for(i=0;i<chat.length;i++){
         var chats=document.createElement('div');
@@ -171,9 +177,24 @@ async function Start() {
 console.log("yay");
 
 function InputCell(word){
-    if(answer['자모'].indexOf(word)!=-1){
-        document.getElementById(word).className="key present";
-    }else{
-        document.getElementById(word).className="key absent";
+    const class_ = document.getElementById(word).className;
+    if(class_=="key"){
+        if(answer['자모'].indexOf(word)!=-1){
+            class_="key present";
+        }else{
+            class_="key absent";
+        }
     }
+    else if(class_ == "key present"){
+        for(i=0;i<answer['자모'].length;i++){
+            if(answer['자모'][i]==word){
+                grid_container[0][i].className = answer['자모'][i];
+                class_ = "key correct";
+            }
+        }
+        if(class_ != "key correct"){
+            alert("오류 발생:게임이 정상적으로 진행되고 있지 않습니다.");
+        }
+    }
+    
 }

@@ -10,15 +10,12 @@ var names=[];
 var start=0;
 
 app.get('/', (req, res) => {
-    start=0;
     res.sendFile(__dirname, "/index.html"); // fs를 안 써도 fs모듈 사용
 });
 
 app.get('/start',(req, res) => {
-    start=1;
-    chats=[];
-    names=[];
-    Start();
+    chats = [];
+    names = [];
 });
 
 app.get('/chat',(req, res) => {
@@ -76,7 +73,7 @@ async function Start() {
         console.log(`${chat.profile.nickname}: ${message}`)
         chats.push(message);
         names.push(chat.profile.nickname);
-        if(chats.length>50){
+        while(chats.length>50){
             chats.shift();
             names.shift();
         }
@@ -119,13 +116,11 @@ async function Start() {
     // })
 
     // 채팅 연결
-    if(start==1)
-        await chzzkChat.connect()
-    else{
-        return;
-    }
+    await chzzkChat.connect()
 }
 
 app.listen(3000, () => {
     console.log('Server started on port 3000');
   });
+
+Start();
