@@ -70,13 +70,12 @@ async function Start() {
     // 일반 채팅
     chzzkChat.on('chat', chat => {
         const message = chat.hidden ? "[블라인드 처리 됨]" : chat.message
-        console.log(`${chat.profile.nickname}: ${message}`)
         chats.push(message);
+        console.log(`${chat.profile.nickname}: ${message}/${chats.length}`)
         names.push(chat.profile.nickname);
         while(chats.length>50){
             chats.shift();
             names.shift();
-            console.log(chats.length);
         }
 
         // 유저의 팔로우 일시 불러오기
