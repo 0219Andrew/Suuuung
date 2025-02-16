@@ -122,7 +122,7 @@ function submit(){
 
 async function starting() {
     await fetch(`/start`);
-    setInterval(()=>{Start()},1000);
+    setInterval(function(){Start()},1000);
 }
 
 function processing(word){
