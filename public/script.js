@@ -75,7 +75,7 @@ function submit(){
     answer["답"] = button.value;
     processing(answer["답"]);
     //게임 화면으로 화면 체인지
-    left_panel.innerHTML=`<div class="header">모오오오오챤</div>
+    left_panel.innerHTML=`<div class="header">수우우우웅</div>
         <div class="grid-container" id="grid-container">
             <div class="grid"><div class="cell"></div></div>
             <div class="grid"><div class="cell"></div></div>
