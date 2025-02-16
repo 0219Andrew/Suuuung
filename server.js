@@ -19,6 +19,7 @@ app.get('/start',(req, res) => {
 });
 
 app.get('/chat',(req, res) => {
+    comsole.log("요청받음");
     res.json({'chats':chats,'names':names});
 });
 
