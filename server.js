@@ -32,7 +32,7 @@ async function Start() {
     })
 
     // 채널 검색
-    const result = await client.search.channels("모모챤")
+    const result = await client.search.channels("모카형")
     const channel = result.channels[0]
 
     // 설정된 방송 정보, 방송 중이 아닐 경우에도 정보가 존재할 수 있음
