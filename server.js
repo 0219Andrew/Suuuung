@@ -16,11 +16,11 @@ app.get('/', (req, res) => {
 app.get('/start',(req, res) => {
     chats = [];
     names = [];
+    res.send("완료");
 });
 
 app.get('/chat',(req, res) => {
-    comsole.log("요청받음");
-    res.json({'chats':chats,'names':names});
+    res.json({chats:chats,names:names});
 });
 
 async function Start() {
@@ -33,7 +33,7 @@ async function Start() {
     })
 
     // 채널 검색
-    const result = await client.search.channels("모카형")
+    const result = await client.search.channels("모모챤")
     const channel = result.channels[0]
 
     // 설정된 방송 정보, 방송 중이 아닐 경우에도 정보가 존재할 수 있음
@@ -74,7 +74,7 @@ async function Start() {
         chats.push(message);
         console.log(`${chat.profile.nickname}: ${message}/${chats.length}`)
         names.push(chat.profile.nickname);
-        while(chats.length>50){
+        while(chats.length>20){
             chats.shift();
             names.shift();
         }

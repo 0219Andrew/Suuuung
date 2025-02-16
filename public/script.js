@@ -7,7 +7,37 @@ const JONGSUNG_LIST = [' ', 'ㄱ', 'ㄱ ㄱ', 'ㄱ ㅅ', 'ㄴ', 'ㄴ ㅈ', 'ㄴ 
 
 let grid_container;
 let keyboard_container;
+let chatterlist = {};
+let vote = {
+    "ㅂ":0,
+    "ㅈ":0,
+    "ㄷ":0,
+    "ㄱ":0,
+    "ㅅ":0,
+    "ㅛ":0,
+    "ㅕ":0,
+    "ㅑ":0,
+    "ㅁ":0,
+    "ㄴ":0,
+    "ㅇ":0,
+    "ㄹ":0,
+    "ㅎ":0,
+    "ㅗ":0,
+    "ㅓ":0,
+    "ㅏ":0,
+    "ㅣ":0,
+    "ㅋ":0,
+    "ㅌ":0,
+    "ㅊ":0,
+    "ㅍ":0,
+    "ㅠ":0,
+    "ㅜ":0,
+    "ㅡ":0,
+}
+let vote_html={};
+let winner_list={};
 
+let interval;
 
 let answer = {"답":"답","자모":"ㄷㅏㅂ"};
 const left_panel = document.getElementById("left-panel");
@@ -116,13 +146,44 @@ function submit(){
                 <div class="key" id="ㅡ" onclick="InputCell('ㅡ')">ㅡ</div>
             </div>
         </div>`;
+    Object.keys(vote).forEach(element => {
+        vote_html[element] = document.getElementById(element);
+    });
     LoadGrid();
     starting();
 }
 
 async function starting() {
+    chatterlist={};
+    vote = {
+        "ㅂ":0,
+        "ㅈ":0,
+        "ㄷ":0,
+        "ㄱ":0,
+        "ㅅ":0,
+        "ㅛ":0,
+        "ㅕ":0,
+        "ㅑ":0,
+        "ㅁ":0,
+        "ㄴ":0,
+        "ㅇ":0,
+        "ㄹ":0,
+        "ㅎ":0,
+        "ㅗ":0,
+        "ㅓ":0,
+        "ㅏ":0,
+        "ㅣ":0,
+        "ㅋ":0,
+        "ㅌ":0,
+        "ㅊ":0,
+        "ㅍ":0,
+        "ㅠ":0,
+        "ㅜ":0,
+        "ㅡ":0,
+    }
     await fetch(`/start`);
-    Start();
+    clearInterval(interval);
+    interval = setInterval(()=>Start(),500);
 }
 
 function processing(word){
@@ -141,43 +202,141 @@ function processing(word){
 
     answer["자모"] = unicodeStr;
     // 문자열을 자모 분리한 출력
-    console.log(`변환된 자모 : ${unicodeStr}`);
 }
 
 async function Start() {
-    var chat= await fetch(`/chat`);
-    chat=await chat.json();
+    var chat= await fetch('/chat').then(res => res.json());
     var name = chat['names'];
     chat = chat['chats'];
-
-    console.log("테스팅시작");
     console.log(chat);
-    console.log(name);
-    console.log("테스팅끝");
+
+    var is =0;
+    if(!(name[name.length-1] in chatterlist)){
+        chatterlist[name[name.length-1]] = '';
+    }
     
     chatContainer.innerHTML = "";
     var correct = 0;
+    var initial_color = "#dd3333";//빨간색
+    var initial_nickname_color = "#b2b2b2";//회색
     for(i=0;i<chat.length;i++){
         var chats=document.createElement('div');
         chats.class="chat-message";
-        var color_of_message = "#dd3333";//빨간색
+        var color_of_message = initial_color;
+        var color_of_nickname = initial_nickname_color;
+        
         if(chat[i] == answer["답"]){
             color_of_message = "#64bd03";//초록색
+            color_of_nickname = "#1f9e00";//진한초록
             correct=1;
+            if(!(name[i] in winner_list)){
+                winner_list[name[i]] = 0;
+            }
+            winner_list[name[i]]+=1;
+            clearInterval(interval);
         }
-        chats.innerHTML=`<div class="chat-nickname"><font color="${color_of_message}">${name[i]}</font></div>
-            <div class="chat-content">${chat[i]}</div>`;
+        else if(chat[i] == "!정답자"){
+            chat[i]=``;
+            Object.keys(winner_list).forEach(element => {
+                chat[i]+=`${element}:${winner_list[element]}
+                `;
+            });
+        }
+        /*else if(chat[i] == "!투표시작"){
+            vote = {
+                "ㅂ":0,
+                "ㅈ":0,
+                "ㄷ":0,
+                "ㄱ":0,
+                "ㅅ":0,
+                "ㅛ":0,
+                "ㅕ":0,
+                "ㅑ":0,
+                "ㅁ":0,
+                "ㄴ":0,
+                "ㅇ":0,
+                "ㄹ":0,
+                "ㅎ":0,
+                "ㅗ":0,
+                "ㅓ":0,
+                "ㅏ":0,
+                "ㅣ":0,
+                "ㅋ":0,
+                "ㅌ":0,
+                "ㅊ":0,
+                "ㅍ":0,
+                "ㅠ":0,
+                "ㅜ":0,
+                "ㅡ":0,
+            };
+            initial_color = "#3d3d3d";//회색
+            color_of_message = "#dd9933"//주황색
+        }else if(initial_color == "#3d3d3d" && chat[i].length == 1){
+            if(chat[i] in vote){
+                color_of_message = "#e901af";//진한핑크
+                if(chatterlist[name[i]] != ''){
+                    vote[chatterlist[name[i]]]-=1;
+                }
+                chatterlist[name[i]]=chat[i];
+                vote[chat[i]]+=1;
+                console.log(vote[chat[i]]);
+            }
+        }else if(initial_color == "#3d3d3d" && chat[i] == "!투표종료"){
+            vote = {
+                "ㅂ":0,
+                "ㅈ":0,
+                "ㄷ":0,
+                "ㄱ":0,
+                "ㅅ":0,
+                "ㅛ":0,
+                "ㅕ":0,
+                "ㅑ":0,
+                "ㅁ":0,
+                "ㄴ":0,
+                "ㅇ":0,
+                "ㄹ":0,
+                "ㅎ":0,
+                "ㅗ":0,
+                "ㅓ":0,
+                "ㅏ":0,
+                "ㅣ":0,
+                "ㅋ":0,
+                "ㅌ":0,
+                "ㅊ":0,
+                "ㅍ":0,
+                "ㅠ":0,
+                "ㅜ":0,
+                "ㅡ":0,
+            };
+            initial_color = "#dd3333";
+        }
+        */
+
+        chats.innerHTML=`<div class="chat-nickname"><font color="${color_of_nickname}"><b>${name[i]}</b></font></div>
+            <div class="chat-content"><font color="${color_of_message}"><b>${chat[i]}</b></font></div>
+            <br>`;
         chatContainer.append(chats);
         if(correct==1){
-            left_panel.innerHTML=`<h2>${name[i]}님 정답!<h2>`;
+            left_panel.innerHTML=`<br><br><br><h1><font color="#1f9e00"><b>${name[i]}</b></font>님 정답!<h>`;
             correct=0;
+            while(interval == null){
+                console.log("제거");
+                clearInterval(interval);
+            }
+            console.log("dk",interval);
             return;
         }
     }
-    Start();
-}
 
-console.log("yay");
+    /*
+    Object.keys(vote).forEach(element => {
+        if(vote[element]!=0){
+            console.log(element);
+            vote_html[element].innerHTML=`${element}<h6>${vote[element]}</h6>`;
+        }
+    });
+    */
+}
 
 function InputCell(word){
     const class_ = document.getElementById(word).className;
@@ -200,3 +359,20 @@ function InputCell(word){
         }
     }
 }
+
+window.addEventListener("keydown", (e) => {
+    if(e.key == "Escape"){
+        left_panel.innerHTML=`<div class="header">정답 입력하기</div>
+            <form action="">
+                <input class="button" type="text" placeholder="정답" id="button">
+                
+                <div class="keyboard-container" id="keyboard-container">
+                <div class="keyboard-row">
+                    <div class="key" id="submit" onclick="submit()">확정</div>
+                </div>
+                </div>
+            </form>
+            <br>
+            <h4>정답을 입력하면 시청자들이 맞출겁니다!</h4>`;
+    }
+});
