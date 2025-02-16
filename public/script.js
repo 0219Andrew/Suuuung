@@ -122,7 +122,7 @@ function submit(){
 
 async function starting() {
     await fetch(`/start`);
-    setTimeout(Start,1000);
+    Start();
 }
 
 function processing(word){
@@ -174,6 +174,7 @@ async function Start() {
             return;
         }
     }
+    Start();
 }
 
 console.log("yay");
@@ -198,6 +199,4 @@ function InputCell(word){
             alert("오류 발생:게임이 정상적으로 진행되고 있지 않습니다.");
         }
     }
-    
-    setTimeout(Start,1000);
 }
