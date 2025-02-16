@@ -76,6 +76,7 @@ async function Start() {
         while(chats.length>50){
             chats.shift();
             names.shift();
+            console.log(chats.length);
         }
 
         // 유저의 팔로우 일시 불러오기
