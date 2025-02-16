@@ -118,11 +118,11 @@ function submit(){
         </div>`;
     LoadGrid();
     starting();
-    requestAnimationFrame(Start);
 }
 
 async function starting() {
     await fetch(`/start`);
+    setInterval(Start(),1000);
 }
 
 function processing(word){
@@ -174,8 +174,6 @@ async function Start() {
             return;
         }
     }
-
-    requestAnimationFrame(Start);
 }
 
 console.log("yay");
