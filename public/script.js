@@ -150,6 +150,10 @@ async function Start() {
     var name = chat['names'];
     chat = chat['chats'];
 
+    console.log("테스팅시작");
+    console.log(chat);
+    console.log(name);
+    console.log("테스팅끝");
     
     chatContainer.innerHTML = "";
     var correct = 0;
