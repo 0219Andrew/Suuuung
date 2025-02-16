@@ -145,7 +145,8 @@ function processing(word){
 }
 
 async function Start() {
-    var chat= fetch(`/chat`).then(res=>{res.json()});
+    var chat= await fetch(`/chat`);
+    chat=await chat.json();
     var name = chat['names'];
     chat = chat['chats'];
 
