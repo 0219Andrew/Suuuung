@@ -350,7 +350,7 @@ function InputCell(word){
     else if(class_.className == "key present"){
         for(i=0;i<answer['자모'].length;i++){
             if(answer['자모'][i]==word){
-                grid_container[0][i].className = answer['자모'][i];
+                grid_container.firstElementChild.children[i].innerHTML = answer['자모'][i];
                 class_.className = "key correct";
             }
         }
