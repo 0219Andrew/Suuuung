@@ -339,22 +339,22 @@ async function Start() {
 }
 
 function InputCell(word){
-    const class_ = document.getElementById(word).className;
-    if(class_=="key"){
+    const class_ = document.getElementById(word);
+    if(class_.className=="key"){
         if(answer['자모'].indexOf(word)!=-1){
-            class_="key present";
+            class_.className="key present";
         }else{
-            class_="key absent";
+            class_.className="key absent";
         }
     }
-    else if(class_ == "key present"){
+    else if(class_.className == "key present"){
         for(i=0;i<answer['자모'].length;i++){
             if(answer['자모'][i]==word){
                 grid_container[0][i].className = answer['자모'][i];
-                class_ = "key correct";
+                class_.className = "key correct";
             }
         }
-        if(class_ != "key correct"){
+        if(class_.className != "key correct"){
             alert("오류 발생:게임이 정상적으로 진행되고 있지 않습니다.");
         }
     }
