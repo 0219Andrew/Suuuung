@@ -239,6 +239,7 @@ async function Start() {
             chat[i]=``;
             data =  await fetch('/database');
             console.log(data);
+            console.log(typeof(data));
             Object.keys(winner_list).forEach(element => {
                 chat[i]+=`${element}:${winner_list[element]}
                 `;
