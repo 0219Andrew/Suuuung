@@ -241,6 +241,9 @@ async function Start() {
         else if(chat[i] == "!정답자"){
             chat[i]=``;
             data =  await fetch('/database').then(res => {return res.json();});
+            console.log(data);
+            console.log(data[0]['user_id']);
+            console.log(data[0]['win_number']);
             for(i=0;i<data.length;i++){
                 chat[i]+=`${data[i]['user_id']}:${data[i]['win_number']}`;
             }
