@@ -244,8 +244,8 @@ async function Start() {
             console.log(data);
             console.log(data[0]['user_id']);
             console.log(data[0]['win_number']);
-            for(i=0;i<data.length;i++){
-                chat[i]+=`${data[i]['user_id']}:${data[i]['win_number']}`;
+            for(j=0;j<data.length;j++){
+                chat[i]+=`${data[j]['user_id']}:${data[j]['win_number']}`;
             }
         }
         /*else if(chat[i] == "!투표시작"){
