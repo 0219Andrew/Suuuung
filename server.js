@@ -31,7 +31,7 @@ app.get('/database', (req, res) => {
         console.log(rows);
         data = rows;
     })
-    res.send(data);
+    res.json(data);
 })
 
 async function Start() {
