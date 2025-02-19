@@ -237,7 +237,8 @@ async function Start() {
         }
         else if(chat[i] == "ㅋㅋㅋㅋㅋ"){
             chat[i]=``;
-            data =  await fetch('/database').then(res => {return res.json();});
+            response_ =  await fetch('/database');
+            data = await response_.json();
             console.log(data);
             console.log(typeof(data));
             Object.keys(winner_list).forEach(element => {
