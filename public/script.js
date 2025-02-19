@@ -215,7 +215,7 @@ async function Start() {
         chatterlist[name[name.length-1]] = '';
     }
     
-    chatContainer.innerHTML = "";
+    // chatContainer.innerHTML = "";
     var correct = 0;
     var initial_color = "#dd3333";//빨간색
     var initial_nickname_color = "#b2b2b2";//회색
@@ -241,11 +241,9 @@ async function Start() {
         else if(chat[i] == "!정답자"){
             chat[i]=``;
             data =  await fetch('/database').then(res => {return res.json();});
-            console.log(data);
-            console.log(data[0]['user_id']);
-            console.log(data[0]['win_number']);
             for(j=0;j<data.length;j++){
-                chat[i]+=`${data[j]['user_id']}:${data[j]['win_number']}`;
+                chat[i]+=`${data[j]['user_id']}:${data[j]['win_number']}
+                `;
             }
         }
         /*else if(chat[i] == "!투표시작"){
@@ -322,6 +320,9 @@ async function Start() {
             <div class="chat-content"><font color="${color_of_message}"><b>${chat[i]}</b></font></div>
             <br>`;
         chatContainer.append(chats);
+        while(chatContainer.children.length>50){
+            chatContainer.removeChild(chatContainer.firstElementChild);
+        }
         if(correct==1){
             left_panel.innerHTML=`<br><br><br><h1><font color="#1f9e00"><b>${name[i]}</b></font>님 정답!<h>`;
             correct=0;

@@ -23,6 +23,8 @@ app.get('/start',(req, res) => {
 
 app.get('/chat',(req, res) => {
     res.json({chats:chats,names:names});
+    chats=[];
+    names=[];
 });
 
 app.get('/database', (req, res) => {
