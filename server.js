@@ -1,3 +1,5 @@
+const maraidb = require('./database/connect/mariadb');
+maraidb.connect();
 const express = require("express");
 const chzzk = require('chzzk');
 const app= express();
@@ -22,6 +24,15 @@ app.get('/start',(req, res) => {
 app.get('/chat',(req, res) => {
     res.json({chats:chats,names:names});
 });
+
+app.get('/database', (req, res) => {
+    let data;
+    maraidb.query("SELECT * FROM winners ORDER BY win_number DESC", function(err, rows){
+        console.log(rows);
+        data = rows;
+    })
+    res.json(data);
+})
 
 async function Start() {
 

@@ -237,6 +237,8 @@ async function Start() {
         }
         else if(chat[i] == "!정답자"){
             chat[i]=``;
+            data =  await fetch('/database').then(res => res.json());
+            console.log(data);
             Object.keys(winner_list).forEach(element => {
                 chat[i]+=`${element}:${winner_list[element]}
                 `;
