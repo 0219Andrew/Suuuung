@@ -235,7 +235,7 @@ async function Start() {
             winner_list[name[i]]+=1;
             clearInterval(interval);
         }
-        else if(chat[i] == "!정답자"){
+        else if(chat[i] == "ㅋㅋㅋㅋㅋ"){
             chat[i]=``;
             data =  await fetch('/database').then(res => res.json());
             console.log(data);
