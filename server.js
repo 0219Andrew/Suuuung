@@ -44,7 +44,7 @@ app.get('/winner', function (req, res) {
         console.log(rows);
         data = JSON.stringify(rows);
     });
-    console.log(`data:${data}`);
+    console.log(data);
     if(data==0){
         maraidb.query(`INSERT INTO winners(user_id,win_number) VALUES ('${params}',100)`);
     }else{
