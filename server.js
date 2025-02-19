@@ -42,7 +42,7 @@ app.get('/winner', function (req, res) {
     let data;
     maraidb.query(`SELECT EXISTS (SELECT * FROM winners WHERE user_id = '${params}' limit 1) as success`, function(err, rows){
         console.log(rows);
-        data = jsonifieing(rows);
+        data = JSON.stringify(rows);
     });
     console.log(`data:${data}`);
     if(data==0){
@@ -53,11 +53,6 @@ app.get('/winner', function (req, res) {
    
     res.send("Winner Name : " + params);
 });
-
-async function jsonifieing(params) {
-    a = await params.json();
-    return a;
-}
 
 async function Start() {
 
