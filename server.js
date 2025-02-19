@@ -40,18 +40,18 @@ app.get('/winner/:userid', function (req, res) {
     var params = req.params;
     console.log(params);
     let data;
-    maraidb.query(`SELECT EXISTS (SELECT * FROM winners WHERE user_id = '${params.userid}' limit 1) as success`, function(err, rows){
+    maraidb.query(`SELECT EXISTS (SELECT * FROM winners WHERE user_id = '${decodeURIComponent(params.userid)}' limit 1) as success`, function(err, rows){
         console.log(rows);
         data = rows;
     });
     console.log(`rows:${rows}`);
     if(rows==0){
-        maraidb.query(`INSERT INTO winners(user_id,win_number) VALUES ('${params.user_id}',100)`);
+        maraidb.query(`INSERT INTO winners(user_id,win_number) VALUES ('${decodeURIComponent(params.userid)}',100)`);
     }else{
-        maraidb.query(`UPDATE winners SET win_number = winners.win_number + 1 WHERE user_id =  '${params.userid}'`);
+        maraidb.query(`UPDATE winners SET win_number = winners.win_number + 1 WHERE user_id =  '${decodeURIComponent(params.userid)}'`);
     }
    
-    res.send("Winner Name : " + params.userid);
+    res.send("Winner Name : " + decodeURIComponent(params.userid));
 });
 
 async function Start() {
