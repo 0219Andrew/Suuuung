@@ -44,7 +44,7 @@ app.get('/winner', function (req, res) {
         console.log(rows==0);
         console.log(rows==1);
         maraidb.query(`INSERT INTO winners(user_id, win_number) VALUES ('${params}', 0)`);
-        maraidb.query(`UPDATE winners SET win_number = winners.win_number + 1 WHERE user_id = '${params}'`);
+        maraidb.query(`UPDATE winners SET win_number = winners.win_number + 1 WHERE user_id = '${params}' limit 1`);
         maraidb.query(`delete from winners where win_number = 0`);
         // if(rows==0){
         //     maraidb.query(`INSERT INTO winners(user_id,win_number) VALUES ('${params}',100)`);
