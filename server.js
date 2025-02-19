@@ -38,7 +38,7 @@ app.get('/database', (req, res) => {
 
 app.get('/winner/:userid', function (req, res) {
     var params = req.params;
-    console.log(params);
+    console.log(decodeURIComponent(params.userid));
     let data;
     maraidb.query(`SELECT EXISTS (SELECT * FROM winners WHERE user_id = '${decodeURIComponent(params.userid)}' limit 1) as success`, function(err, rows){
         console.log(rows);
