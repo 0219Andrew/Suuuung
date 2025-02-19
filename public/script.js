@@ -229,21 +229,21 @@ async function Start() {
             color_of_message = "#64bd03";//초록색
             color_of_nickname = "#1f9e00";//진한초록
             correct=1;
-            if(!(name[i] in winner_list)){
-                winner_list[name[i]] = 0;
-            }
-            winner_list[name[i]]+=1;
+
+            await fetch(`/winner?userid=${name[i]}`);
+
+            // if(!(name[i] in winner_list)){
+            //     winner_list[name[i]] = 0;
+            // }
+            // winner_list[name[i]]+=1;
             clearInterval(interval);
         }
-        else if(chat[i] == "ㅋㅋㅋㅋㅋ"){
+        else if(chat[i] == "!정답자"){
             chat[i]=``;
             data =  await fetch('/database').then(res => {return res.json();});
-            console.log(data);
-            console.log(typeof(data));
-            Object.keys(winner_list).forEach(element => {
-                chat[i]+=`${element}:${winner_list[element]}
-                `;
-            });
+            for(i=0;i<data.length;i++){
+                chat[i]+=`${data[i]['user_id']}:${data[i]['win_number']}`;
+            }
         }
         /*else if(chat[i] == "!투표시작"){
             vote = {

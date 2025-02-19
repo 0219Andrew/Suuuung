@@ -31,8 +31,25 @@ app.get('/database', (req, res) => {
         console.log(rows);
         data = rows;
         res.json(data);
-    })
+    });
 })
+
+app.get('/winner/:userid', function (req, res) {
+    var params = req.params;
+    console.log(params);
+    let data;
+    maraidb.query(`SELECT EXISTS (SELECT * FROM winners WHERE user_id = '${params.userid}' limit 1) as success`, function(err, rows){
+        console.log(rows);
+        data = rows;
+    });
+    if(rows==0){
+        maraidb.query(`INSERT INTO winners(user_id,win_number) VALUES ('${params.user_id}',100)`);
+    }else{
+        maraidb.query(`UPDATE winners SET win_number = winners.win_number + 1 WHERE user_id =  '${params.userid}'`);
+    }
+   
+    res.send("Winner Name : " + params.userid);
+});
 
 async function Start() {
 
