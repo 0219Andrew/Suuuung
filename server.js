@@ -42,7 +42,7 @@ app.get('/winner', function (req, res) {
     let data;
     maraidb.query(`SELECT EXISTS (SELECT * FROM winners WHERE user_id = '${params}' limit 1) as success`, function(err, rows){
         console.log(rows);
-        data = rows;
+        data = rows.json();
     });
     console.log(`data:${data}`);
     if(data==0){
