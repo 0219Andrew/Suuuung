@@ -42,17 +42,22 @@ app.get('/winner', function (req, res) {
     let data;
     maraidb.query(`SELECT EXISTS (SELECT * FROM winners WHERE user_id = '${params}' limit 1) as success`, function(err, rows){
         console.log(rows);
-        data = rows.json();
+        data = jsonifieing(rows);
     });
     console.log(`data:${data}`);
     if(data==0){
         maraidb.query(`INSERT INTO winners(user_id,win_number) VALUES ('${params}',100)`);
     }else{
-        maraidb.query(`UPDATE winners SET win_number = winners.win_number + 1 WHERE user_id =  '${params.userid}'`);
+        maraidb.query(`UPDATE winners SET win_number = winners.win_number + 1 WHERE user_id =  '${params}'`);
     }
    
     res.send("Winner Name : " + params);
 });
+
+async function jsonifieing(params) {
+    a = await params.json();
+    return a;
+}
 
 async function Start() {
 
