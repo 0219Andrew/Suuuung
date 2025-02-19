@@ -30,8 +30,8 @@ app.get('/database', (req, res) => {
     maraidb.query("SELECT * FROM winners ORDER BY win_number DESC", function(err, rows){
         console.log(rows);
         data = rows;
+        res.json(data);
     })
-    res.json(data);
 })
 
 async function Start() {
