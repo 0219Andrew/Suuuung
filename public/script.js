@@ -230,7 +230,7 @@ async function Start() {
             color_of_nickname = "#1f9e00";//진한초록
             correct=1;
 
-            await fetch(`/winner?userid=${encodeURIComponent(name[i])}`);
+            await fetch(`/winner?userid=${encodeURIComponent(name[i])}&answer=${encodeURIComponent(answer["답"])}`);
 
             // if(!(name[i] in winner_list)){
             //     winner_list[name[i]] = 0;
